@@ -1,0 +1,258 @@
+---
+  title: "DANL 200: Introduction to Data Analytics<br>Project"
+subtitle: "Quarto Template<br><br>" 
+author: 
+  - name: Bailey
+affiliations:
+  - name: SUNY Geneseo
+- name: Josh
+affiliations:
+  - name: SUNY Geneseo
+- name: Marcus
+affiliations:
+  - name: SUNY Geneseo
+- <br>
+  date: "`r Sys.Date()`"
+
+format: 
+  html:
+  toc: true
+number-sections: true
+code-fold: false      
+code-summary: "Show the code"
+code-tools: true
+highlight-style: espresso # 
+
+execute: 
+  echo: true
+eval: true
+warning: false
+message: false
+fig-width: 9
+---
+  
+  ```{r setup, include = FALSE}
+library(tidyverse)
+
+path <- 'https://bcdanl.github.io/data/climate_finance_energy.csv'
+climate_finance <- read_csv(path)
+
+library(skimr)
+
+```
+
+```{r}
+BS <- read_csv('https://bcdanl.github.io/data/climate_finance_energy.csv')
+nvars <- format(round(ncol(BS), 0), 
+                nsmall=0, 
+                big.mark=",") 
+nobs <- format(round(nrow(BS), 0), 
+               nsmall=0, 
+               big.mark=",")
+```
+
+-   Here is the paged table using `rmarkdown::paged_table()`. Each country in the "party" category is the country that is providing the aid to the recipient country
+
+```{r}
+#| results: asis
+#| echo: false
+rmarkdown::paged_table(BS) 
+```
+
+<br>
+  
+  The number of variables is `r nvars`; the number of observations is `r nobs`.
+
+<br>
+  
+  # Introduction
+  
+  ```         
+This project is going to be used for our DANL 200 course. The primary reason our projet matters would be to showcase how over the semester we have learned how to code and this is the final "test" in a sense of what we have learned to do.The data set we choose to use for this project address relations between other countries and showcases which coutires provide aid to other counitres.
+```
+
+# Data
+
+## Data Summary
+
+1.  **Party**
+  
+  -   Count: 3
+
+-   Unique Values: 2
+
+2.  **Recipient Country/Region**
+  
+  -   Count: 3
+
+-   Unique Values: 2
+
+3.  **Project/Programme/Activity**
+  
+  -   Count: 1
+
+-   Unique Values: 1
+
+4.  **Type of Support**
+  
+  -   Count: 3
+
+-   Unique Values: 1
+
+5.  **Year**
+  
+  -   Count: 3
+
+-   Mean: 2015.67
+
+-   Standard Deviation: 1.15
+
+-   Min: 2015
+
+-   25th Percentile: 2015
+
+-   Median (50th Percentile): 2015
+
+-   75th Percentile: 2016
+
+-   Max: 2017
+
+6.  **Contribution**
+  
+  -   Count: 3
+
+-   Mean: 13,495.39
+
+-   Standard Deviation: 3,209.92
+
+-   Min: 11,074.20
+
+-   25th Percentile: 11,674.88
+
+-   Median (50th Percentile): 12,275.56
+
+-   75th Percentile: 14,705.99
+
+-   Max: 17,136.41
+
+7.  **Status**
+  
+  -   Count: 3
+
+-   Unique Values: 1
+
+8.  **Energy**
+  
+  -   Count: 3
+
+-   Unique Values: 1
+
+## Data Visualization
+
+```{r}
+library(ggplot2)
+ggplot(climate_finance, aes(x = Contribution)) +
+  geom_histogram(binwidth = 100,
+                 fill = "blue", 
+                 color = "black") +
+  theme_minimal() +
+  labs(title = "Histogram of Contributions",
+       x = "Contribution",
+       y = "Frequency")
+
+
+```
+
+## Data Transformation
+
+```{r}
+
+climate_finance_transformed <- climate_finance %>%
+  mutate(
+    Year = as.factor(Year),
+    Contribution_Normalized = scales::rescale(Contribution, to = c(0, 1)),
+    Energy_Encoded = as.numeric(Energy),
+    Contribution_Category = cut(Contribution, 
+                                breaks = c(-Inf, 10000, 50000, Inf), 
+                                labels = c('Low', 'Medium', 'High')),
+    Year_Group = ifelse(Year <= 2010, 'Before 2010', 
+                        ifelse(Year <= 2015, '2011-2015', 'After 2015'))
+  )
+
+# View the transformed data
+head(climate_finance_transformed)
+
+
+```
+
+# Example Title {.unnumbered}
+
+## Analysis
+
+## Quotes
+
+## Inserting Figures
+
+```{r}
+
+```
+
+## Inserting a HTML page
+
+```{=html}
+<!DOCTYPE html>
+  <html>
+  <head>
+  <title>Climate Finance Data</title>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+  }
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  border: 1px solid black;
+  text-align: left;
+  padding: 8px;
+}
+th {
+  background-color: #f2f2f2;
+}
+</style>
+  </head>
+  <body>
+  <h1>Climate Finance Dataset</h1>
+  <table>
+  <tr>
+  <th>Party</th>
+  <th>Recipient Country/Region</th>
+  <th>Type of Support</th>
+  <th>Year</th>
+  <th>Contribution</th>
+  <th>Status</th>
+  <th>Energy</th>
+  </tr>
+  <tr>
+  <td>Austria</td>
+  <td>998 Developing countries, unspecified</td>
+  <td>mitigation</td>
+  <td>2015</td>
+  <td>11074.20</td>
+  <td>committed</td>
+  <td>FALSE</td>
+  </tr>
+  </table>
+  </body>
+  </html>
+  ```
+<br><br><br><br>
+  
+  # References
+  
+  -   <https://quarto.org/docs/output-formats/html-basics.html>
+  
+  -   <https://quarto.org/docs/websites/>
+  
