@@ -25,7 +25,7 @@
     "href": "quarto-template.html#data-transformation",
     "title": "DANL 200: Introduction to Data AnalyticsProject",
     "section": "2.3 Data Transformation",
-    "text": "2.3 Data Transformation\n\nclimate_finance_transformed &lt;- climate_finance %&gt;%\n  mutate(\n    Year = as.factor(Year),\n    Contribution_Normalized = scales::rescale(Contribution, to = c(0, 1)),\n    Energy_Encoded = as.numeric(Energy),\n    Contribution_Category = cut(Contribution, \n                                breaks = c(-Inf, 10000, 50000, Inf), \n                                labels = c('Low', 'Medium', 'High')),\n    Year_Group = ifelse(Year &lt;= 2010, 'Before 2010', \n                        ifelse(Year &lt;= 2015, '2011-2015', 'After 2015'))\n  )\n\n# View the transformed data\nhead(climate_finance_transformed)\n\n# A tibble: 6 × 12\n  Party   Recipient country/reg…¹ Project/programme/ac…² `Type of support` Year \n  &lt;chr&gt;   &lt;chr&gt;                   &lt;chr&gt;                  &lt;chr&gt;             &lt;fct&gt;\n1 Austria 998 Developing countri… &lt;NA&gt;                   mitigation        2015 \n2 Austria 998 Developing countri… &lt;NA&gt;                   mitigation        2015 \n3 Austria 998 Developing countri… &lt;NA&gt;                   mitigation        2015 \n4 Austria 998 Developing countri… &lt;NA&gt;                   mitigation        2015 \n5 Austria 998 Developing countri… &lt;NA&gt;                   mitigation        2015 \n6 Austria 998 Developing countri… &lt;NA&gt;                   adaptation        2015 \n# ℹ abbreviated names: ¹​`Recipient country/region`,\n#   ²​`Project/programme/activity`\n# ℹ 7 more variables: Contribution &lt;dbl&gt;, Status &lt;chr&gt;, Energy &lt;lgl&gt;,\n#   Contribution_Normalized &lt;dbl&gt;, Energy_Encoded &lt;dbl&gt;,\n#   Contribution_Category &lt;fct&gt;, Year_Group &lt;lgl&gt;"
+    "text": "2.3 Data Transformation\n\nclimate_finance_transformed &lt;- climate_finance %&gt;%\n  mutate(\n    Year = as.factor(Year),\n    Contribution_Normalized = scales::rescale(Contribution, to = c(0, 1)),\n    Energy_Encoded = as.numeric(Energy),\n    Contribution_Category = cut(Contribution, \n                                breaks = c(-Inf, 10000, 50000, Inf), \n                                labels = c('Low', 'Medium', 'High')),\n    Year_Group = ifelse(Year &lt;= 2010, 'Before 2010', \n                        ifelse(Year &lt;= 2015, '2011-2015', 'After 2015'))\n  )\n\nhead(climate_finance_transformed)\n\n# A tibble: 6 × 12\n  Party   Recipient country/reg…¹ Project/programme/ac…² `Type of support` Year \n  &lt;chr&gt;   &lt;chr&gt;                   &lt;chr&gt;                  &lt;chr&gt;             &lt;fct&gt;\n1 Austria 998 Developing countri… &lt;NA&gt;                   mitigation        2015 \n2 Austria 998 Developing countri… &lt;NA&gt;                   mitigation        2015 \n3 Austria 998 Developing countri… &lt;NA&gt;                   mitigation        2015 \n4 Austria 998 Developing countri… &lt;NA&gt;                   mitigation        2015 \n5 Austria 998 Developing countri… &lt;NA&gt;                   mitigation        2015 \n6 Austria 998 Developing countri… &lt;NA&gt;                   adaptation        2015 \n# ℹ abbreviated names: ¹​`Recipient country/region`,\n#   ²​`Project/programme/activity`\n# ℹ 7 more variables: Contribution &lt;dbl&gt;, Status &lt;chr&gt;, Energy &lt;lgl&gt;,\n#   Contribution_Normalized &lt;dbl&gt;, Energy_Encoded &lt;dbl&gt;,\n#   Contribution_Category &lt;fct&gt;, Year_Group &lt;lgl&gt;\n\n\n\ntotal_contributions &lt;- aggregate(Contribution ~ Party, data = climate_finance, sum)\n\nleast_contributing_country &lt;- total_contributions[which.min(total_contributions$Contribution), ]\n\nprint(least_contributing_country)\n\n    Party Contribution\n22 Monaco        25000\n\n\n\ntotal_contributions &lt;- aggregate(Contribution ~ Party, data = climate_finance, sum)\n\nmost_contributing_country &lt;- total_contributions[which.max(total_contributions$Contribution), ]\n\nprint(most_contributing_country)\n\n                Party Contribution\n8 European Union (28)  12807587694"
   },
   {
     "objectID": "posts/starwars/starwars_df.html",
@@ -102,14 +102,14 @@
     "href": "index.html",
     "title": "Bailey Sykes",
     "section": "",
-    "text": "Finley Malloc majors in Data Analytics at SUNY Geneseo. When not working on data analytics, Finley enjoys spending time unicycling and playing with her pet iguana."
+    "text": "I am a Business Administration major here at Suny Geneseo. This is my second year here on campus. When not doing school work or degree related activates,I run my own eBay site where I buy, sell, and trade items. My specialty are tools are car parts but I dabble in just about anything. I also work for an estate sale company called flour city estate sales where I help with the set up and working of sales. I also will help with the pricing of items, especially when they fall under my expertise"
   },
   {
     "objectID": "index.html#education",
     "href": "index.html#education",
     "title": "Bailey Sykes",
     "section": "Education",
-    "text": "Education\nState University of New York at Geneseo | Geneseo, NY  B.S. in Data Analytics | Aug 2022 - May 2026  Minor in Business Administration"
+    "text": "Education\nState University of New York at Geneseo | Geneseo, NY  B.S. in Business Administration| Aug 2022 - May 2026  Greece Arcadia High School"
   },
   {
     "objectID": "index.html#experience",
@@ -131,5 +131,12 @@
     "title": "Welcome To My Blog",
     "section": "",
     "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "quarto-template.html#explanation-of-the-data-and-website",
+    "href": "quarto-template.html#explanation-of-the-data-and-website",
+    "title": "DANL 200: Introduction to Data AnalyticsProject",
+    "section": "2.4 explanation of the data and website",
+    "text": "2.4 explanation of the data and website\nOverall this project has been a huge eye-opening experience regarding the difficulty and meticulous efforts to set up a website and code. This data.frame that I have discussed has a very significant importance when it comes to how other countries give aid to others. Countries all over the world have allies. Whether it may be the United States or Russia, but a way to keep in good standing with you’re allies or even countries you may what to become allies or good friends with is aid. So this data set showcases which countries are helping each other the most and which ones are not helping certain countries.\nThe most contributions made by anyone would be the EU which would make the most amount of sense considering its a group configured of lots of other countries, but they singulary have contributed the most other than any other organization or country\nThe least amount of contributions made by anyone would be Monaco. Monaco is the second smallest indapendant state in the world so it makes the most sense why it would contribute the least if any at all."
   }
 ]

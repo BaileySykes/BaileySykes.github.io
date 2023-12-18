@@ -2,7 +2,7 @@
 title: "Bailey Sykes" 
 about:
   template: trestles  # jolla  trestles  solana  marquee  broadside
-  image: img/image.lpg
+  image: img/image.jpg
   image-width: 16em
   image-shape: round # rectangle  round  rounded
   
