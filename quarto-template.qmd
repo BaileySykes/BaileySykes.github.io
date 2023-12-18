@@ -67,18 +67,17 @@ The number of variables is `r nvars`; the number of observations is `r nobs`.
 
 # Introduction
 
-This project is going to be used for our DANL 200 course. The primary reason our projet matters would be to showcase how over the semester we have learned how to code and this is the final "test" in a sense of what we have learned to do.The data set we choose to use for this project address relations between other countries and showcases which coutires provide aid to other countries. In this project, these questions will be coverd.
+This project is going to be used for our DANL 200 course. The primary reason our project matters would be to showcase how over the semester we have learned how to code and this is the final "test" in a sense of what we have learned to do.The data set we choose to use for this project address relations between other countries and showcases which countries provide aid to other countries. In this project, these questions will be covered.
 
 -which country provides the most support
 
--whih country providees the least support
+-which country provides the least support
 
 -why this subject matters
 
--is there a coralation between where a country is and why it may contriburte more to other countries
+-is there a correlation between where a country is and why it may contribute more to other countries
 
--
-
+-   
 
 # Data
 
@@ -186,12 +185,37 @@ climate_finance_transformed <- climate_finance %>%
                         ifelse(Year <= 2015, '2011-2015', 'After 2015'))
   )
 
-# View the transformed data
 head(climate_finance_transformed)
 
 
 ```
- 
+
+```{r}
+total_contributions <- aggregate(Contribution ~ Party, data = climate_finance, sum)
+
+least_contributing_country <- total_contributions[which.min(total_contributions$Contribution), ]
+
+print(least_contributing_country)
+```
+
+```{r}
+total_contributions <- aggregate(Contribution ~ Party, data = climate_finance, sum)
+
+most_contributing_country <- total_contributions[which.max(total_contributions$Contribution), ]
+
+print(most_contributing_country)
+
+
+```
+
+## explanation of the data and website
+
+Overall this project has been a huge eye-opening experience regarding the difficulty and meticulous efforts to set up a website and code. This data.frame that I have discussed has a very significant importance when it comes to how other countries give aid to others. Countries all over the world have allies. Whether it may be the United States or Russia, but a way to keep in good standing with you're allies or even countries you may what to become allies or good friends with is aid. So this data set showcases which countries are helping each other the most and which ones are not helping certain countries.
+
+The most contributions made by anyone would be the EU which would make the most amount of sense considering its a group configured of lots of other countries, but they singulary have contributed the most other than any other organization or country
+
+The least amount of contributions made by anyone would be Monaco. Monaco is the second smallest indapendant state in the world so it makes the most sense why it would contribute the least if any at all.
+
 <br><br><br><br>
 
 # References
@@ -199,5 +223,3 @@ head(climate_finance_transformed)
 -   <https://quarto.org/docs/output-formats/html-basics.html>
 
 -   <https://quarto.org/docs/websites/>
-
--   
